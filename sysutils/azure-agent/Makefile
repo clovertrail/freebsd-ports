@@ -3,8 +3,7 @@
 PORTNAME=	azure-agent
 PORTVERSION=	2.2.8
 CATEGORIES=	sysutils
-#MASTER_SITES=   https://github.com/Azure/WALinuxAgent/archive/${PORTVERSION}.tar.gz
-MAINTAINER=	honzhan@microsoft.com
+MAINTAINER=	gjb@FreeBSD.org
 COMMENT=	The Microsoft Azure Linux Agent
 
 LICENSE=	APACHE20
@@ -29,8 +28,5 @@ PLIST_FILES=	sbin/waagent
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.options.mk>
-
-#do-install:
-#	${INSTALL_SCRIPT} ${WRKSRC}/waagent ${STAGEDIR}${PREFIX}/sbin
 
 .include <bsd.port.mk>
