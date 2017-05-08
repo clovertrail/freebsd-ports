@@ -864,7 +864,7 @@
      name='cloud-init',
 --- sysvinit/freebsd/cloudconfig.orig
 +++ sysvinit/freebsd/cloudconfig
-@@ -7,7 +7,6 @@
+@@ -7,24 +7,14 @@
  . /etc/rc.subr
  
  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -872,9 +872,26 @@
  
  name="cloudconfig"
  command="/usr/local/bin/cloud-init"
+ start_cmd="cloudconfig_start"
+ stop_cmd=":"
+ rcvar="cloudinit_enable"
+-start_precmd="cloudinit_override"
+ start_cmd="cloudconfig_start"
+ 
+-cloudinit_override()
+-{
+-	# If there exist sysconfig/defaults variable override files use it...
+-	if [ -f /etc/defaults/cloud-init ]; then
+-		. /etc/defaults/cloud-init
+-	fi
+-}
+-
+ cloudconfig_start()
+ {
+ 	echo "${command} starting"
 --- sysvinit/freebsd/cloudfinal.orig
 +++ sysvinit/freebsd/cloudfinal
-@@ -7,7 +7,6 @@
+@@ -7,24 +7,14 @@
  . /etc/rc.subr
  
  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -882,9 +899,26 @@
  
  name="cloudfinal"
  command="/usr/local/bin/cloud-init"
+ start_cmd="cloudfinal_start"
+ stop_cmd=":"
+ rcvar="cloudinit_enable"
+-start_precmd="cloudinit_override"
+ start_cmd="cloudfinal_start"
+ 
+-cloudinit_override()
+-{
+-	# If there exist sysconfig/defaults variable override files use it...
+-	if [ -f /etc/defaults/cloud-init ]; then
+-		 . /etc/defaults/cloud-init
+-	fi
+-}
+-
+ cloudfinal_start()
+ {
+ 	echo -n "${command} starting"
 --- sysvinit/freebsd/cloudinit.orig
 +++ sysvinit/freebsd/cloudinit
-@@ -7,7 +7,6 @@
+@@ -7,24 +7,14 @@
  . /etc/rc.subr
  
  PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -892,9 +926,26 @@
  
  name="cloudinit"
  command="/usr/local/bin/cloud-init"
+ start_cmd="cloudinit_start"
+ stop_cmd=":"
+ rcvar="cloudinit_enable"
+-start_precmd="cloudinit_override"
+ start_cmd="cloudinit_start"
+ 
+-cloudinit_override()
+-{
+-	# If there exist sysconfig/defaults variable override files use it...
+-	if [ -f /etc/defaults/cloud-init ]; then
+-		. /etc/defaults/cloud-init
+-	fi
+-}
+-
+ cloudinit_start()
+ {
+ 	echo -n "${command} starting"
 --- sysvinit/freebsd/cloudinitlocal.orig
 +++ sysvinit/freebsd/cloudinitlocal
-@@ -1,13 +1,12 @@
+@@ -1,30 +1,20 @@
  #!/bin/sh
  
  # PROVIDE: cloudinitlocal
@@ -909,6 +960,23 @@
  
  name="cloudinitlocal"
  command="/usr/local/bin/cloud-init"
+ start_cmd="cloudlocal_start"
+ stop_cmd=":"
+ rcvar="cloudinit_enable"
+-start_precmd="cloudinit_override"
+ start_cmd="cloudlocal_start"
+ 
+-cloudinit_override()
+-{
+-	# If there exist sysconfig/defaults variable override files use it...
+-	if [ -f /etc/defaults/cloud-init ]; then
+-		. /etc/defaults/cloud-init
+-	fi
+-}
+-
+ cloudlocal_start()
+ {
+ 	echo -n "${command} starting"
 --- tests/unittests/test_datasource/test_azure.py.orig
 +++ tests/unittests/test_datasource/test_azure.py
 @@ -3,6 +3,8 @@
