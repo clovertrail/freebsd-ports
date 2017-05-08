@@ -851,15 +851,39 @@
 -    ETC = "/usr/local/etc"
  elif os.path.isfile('/etc/redhat-release'):
      USR_LIB_EXEC = "/usr/libexec"
- 
-@@ -187,6 +186,9 @@ else:
+
+@@ -166,8 +165,6 @@ else:
+         (ETC + '/cloud', glob('config/*.cfg')),
+         (ETC + '/cloud/cloud.cfg.d', glob('config/cloud.cfg.d/*')),
+         (ETC + '/cloud/templates', glob('templates/*')),
+-        (ETC + '/NetworkManager/dispatcher.d/', ['tools/hook-network-manager']),
+-        (ETC + '/dhcp/dhclient-exit-hooks.d/', ['tools/hook-dhclient']),
+         (USR_LIB_EXEC + '/cloud-init', ['tools/uncloud-init',
+                                         'tools/write-ssh-key-fingerprints']),
+         (USR + '/share/doc/cloud-init', [f for f in glob('doc/*') if is_f(f)]),
+@@ -175,8 +172,13 @@ else:
+             [f for f in glob('doc/examples/*') if is_f(f)]),
+         (USR + '/share/doc/cloud-init/examples/seed',
+             [f for f in glob('doc/examples/seed/*') if is_f(f)]),
+-        (LIB + '/udev/rules.d', [f for f in glob('udev/*.rules')]),
+     ]
++    if os.uname()[0] != 'FreeBSD':
++        data_files.append([
++            (ETC + '/NetworkManager/dispatcher.d/', ['tools/hook-network-manager']),
++            (ETC + '/dhcp/dhclient-exit-hooks.d/', ['tools/hook-dhclient']),
++            (LIB + '/udev/rules.d', [f for f in glob('udev/*.rules')]),
++        ])
+     # Use a subclass for install that handles
+     # adding on the right init system configuration files
+     cmdclass = {
+@@ -187,6 +189,9 @@ else:
  requirements = read_requires()
  if sys.version_info < (3,):
      requirements.append('cheetah')
 +if ((sys.version_info.major == 2 and sys.version_info.minor < 7) or
 +   (sys.version_info.major == 3 and sys.version_info.minor < 2)):
 +    requirements.append('argparse')
- 
+
  setuptools.setup(
      name='cloud-init',
 --- sysvinit/freebsd/cloudconfig.orig
