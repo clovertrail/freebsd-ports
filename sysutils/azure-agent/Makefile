@@ -3,7 +3,7 @@
 PORTNAME=	azure-agent
 PORTVERSION=	2.2.8
 CATEGORIES=	sysutils
-MAINTAINER=	gjb@FreeBSD.org
+MAINTAINER=	honzhan@microsoft.com
 COMMENT=	The Microsoft Azure Linux Agent
 
 LICENSE=	APACHE20

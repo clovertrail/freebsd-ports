@@ -1,7 +1,8 @@
 ==========================================================
 Note:
 1. create soft link for python2.7 if waagent complains for
-   not finding python.
+   not finding python:
+   ln -s /usr/local/bin/python2.7 /usr/bin/python
 
 2. create soft links:
    ln -sf /usr/local/sbin/waagent /usr/sbin/waagent
