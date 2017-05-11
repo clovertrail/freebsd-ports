@@ -1,14 +1,10 @@
 ==========================================================
 Note:
-1. create soft link for python2.7 if waagent complains for
-   not finding python:
-   ln -s /usr/local/bin/python2.7 /usr/bin/python
-
-2. create soft links:
+1. create soft links:
    ln -sf /usr/local/sbin/waagent /usr/sbin/waagent
    ln -sf /usr/local/sbin/waagent2.0 /usr/sbin/waagent2.0
 
-3. To enable waagent, add the following line to rc.conf:
+2. To enable waagent, add the following line to rc.conf:
 
 waagent_enable="YES"
 

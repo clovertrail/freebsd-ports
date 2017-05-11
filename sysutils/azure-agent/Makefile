@@ -18,7 +18,10 @@ RUN_DEPENDS=	python:lang/python \
 		${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss
 
 NO_BUILD=	yes
-USES=		python:2
+USES=		python:2 shebangfix
+
+SHEBANG_FILES=	bin/waagent bin/waagent2.0
+python_OLD_CMD=	"/usr/bin/env python"
 
 USE_GITHUB=     yes
 GH_ACCOUNT=     Azure
