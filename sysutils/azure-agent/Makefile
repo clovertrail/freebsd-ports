@@ -3,6 +3,8 @@
 PORTNAME=	azure-agent
 PORTVERSION=	2.2.8
 CATEGORIES=	sysutils
+DISTVERSIONPREFIX= v
+
 MAINTAINER=	honzhan@microsoft.com
 COMMENT=	The Microsoft Azure Linux Agent
 
@@ -21,7 +23,6 @@ USES=		python:2
 USE_GITHUB=     yes
 GH_ACCOUNT=     Azure
 GH_PROJECT=     WALinuxAgent
-GH_TAGNAME=     v2.2.8
 
 PLIST_FILES=	sbin/waagent
 
