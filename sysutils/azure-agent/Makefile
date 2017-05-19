@@ -29,6 +29,23 @@ GH_PROJECT=     WALinuxAgent
 
 PLIST_FILES=	sbin/waagent
 
+post-patch:
+	${REINPLACE_CMD} -e "s,/usr/sbin/waagent,${PREFIX}/sbin/waagent,g" \
+		${WRKSRC}/bin/waagent2.0
+	${REINPLACE_CMD} -e "s,/usr/sbin,${PREFIX}/sbin/,g" \
+		${WRKSRC}/init/waagent ${WRKSRC}/init/waagent.service \
+		${WRKSRC}/setup.py
+	${REINPLACE_CMD} -e "s,/etc,${PREFIX}/etc,g" \
+		${WRKSRC}/setup.py
+	${REINPLACE_CMD} -e "s,/etc/waagent,${PREFIX}/etc/waagent,g" \
+		${WRKSRC}/bin/waagent2.0 \
+		${WRKSRC}/azurelinuxagent/common/osutil/default.py \
+		${WRKSRC}/init/waagent.service
+	${REINPLACE_CMD} -e "s,/etc/rc.d/waagent,${PREFIX}/etc/rc.d/waagent,g" \
+		${WRKSRC}/bin/waagent2.0
+	${REINPLACE_CMD} -e "s,/usr/bin/python,${PREFIX}/bin/python,g" \
+		${WRKSRC}/init/waagent.service
+
 USE_PYTHON=	autoplist distutils
 
 .include <bsd.port.options.mk>

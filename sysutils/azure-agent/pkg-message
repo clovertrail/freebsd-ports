@@ -1,10 +1,5 @@
 ==========================================================
-Note:
-1. create soft links:
-   ln -sf /usr/local/sbin/waagent /usr/sbin/waagent
-   ln -sf /usr/local/sbin/waagent2.0 /usr/sbin/waagent2.0
-
-2. To enable waagent, add the following line to rc.conf:
+To enable waagent, add the following line to rc.conf:
 
 waagent_enable="YES"
 
